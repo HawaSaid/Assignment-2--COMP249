@@ -13,17 +13,23 @@ public class part1 {
             String line = null;
 
             line = buffer.readLine();// Contains the files to read
-            int i = 0;
+            int numberofLines = 0;
+            int i=0;
 
             // Array of type String created to store the CSV files in the txt file
             String readFile[] = new String[line.length()];
 
-            // Loop to read the txt file containing the CSV files
+            // Loop to find the amount of lines we have in the txt
             while ((line = buffer.readLine()) != null) {
-                readFile[i] = line;
+                numberofLines++;
+            }
+            //Loop to read the txt files containing the CSV files
+            while((line = buffer.readLine()) != null){
+                readFile[numberofLines]=line;
                 i++;
             }
             buffer.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
