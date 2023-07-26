@@ -1,4 +1,3 @@
-
 /**
 * Hawa-Afnane Said (ID:40263400)
 * Haifaa Janoudi (ID:40263748)
@@ -30,14 +29,14 @@ public class part1 {
 
             int i = 0;
 
-            File hokey=new File("Hokey.csv.txt");
-            File football=new File("Football.csv.txt");
-            File basket=new File("Basketball.csv.txt");
-            File synthax=new File("synthax_error_file.txt");
-            PrintWriter hokey1=new PrintWriter(hokey);
-            PrintWriter football1=new PrintWriter(football);
-            PrintWriter basket1=new PrintWriter(basket);
-            PrintWriter synthax1=new PrintWriter(synthax);
+            File hokey = new File("Hokey.csv.txt");
+            File football = new File("Football.csv.txt");
+            File basket = new File("Basketball.csv.txt");
+            File synthax = new File("synthax_error_file.txt");
+            PrintWriter hokey1 = new PrintWriter(hokey);
+            PrintWriter football1 = new PrintWriter(football);
+            PrintWriter basket1 = new PrintWriter(basket);
+            PrintWriter synthax1 = new PrintWriter(synthax);
 
             String[] readFile = new String[numofLines];
 
@@ -118,11 +117,18 @@ public class part1 {
                             } else if (empty == 4) {
                                 missingfield = "championship field is missing";
                             }
-                            synthax1.println("synthax error in file:" + filescsv + "\n=============\nError: " + missingfield
-                                    + "\nRecord: " + line1+"\n\n");
+                            synthax1.println(
+                                    "synthax error in file:" + filescsv + "\n=============\nError: " + missingfield
+                                            + "\nRecord: " + line1 + "\n\n");
                         }
 
                     }
+                    // Closes all printWriters
+                    hokey1.close();
+                    football1.close();
+                    basket1.close();
+                    synthax1.close();
+
                     filescsv.close();// Closes the filescsv
 
                 } catch (IOException e) {
