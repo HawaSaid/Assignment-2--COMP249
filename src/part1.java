@@ -8,19 +8,20 @@
  */
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.File;
 
 public class part1 {
-    public static void main(String[] args) {
+
+    public static void do_part1() {
 
         // Try-catch block to handle IO exception
         try {
             // Creates an instance of the BufferedReader class
             BufferedReader buffer = new BufferedReader(new FileReader("Part1_input_file_names.txt"));
-
+            int empty = 0;
             String line = null;
             line = buffer.readLine();// Contains the files to read
 
@@ -28,6 +29,15 @@ public class part1 {
                                                     // the txt
 
             int i = 0;
+
+            File hokey=new File("Hokey.csv.txt");
+            File football=new File("Football.csv.txt");
+            File basket=new File("Basketball.csv.txt");
+            File synthax=new File("synthax_error_file.txt");
+            PrintWriter hokey1=new PrintWriter(hokey);
+            PrintWriter football1=new PrintWriter(football);
+            PrintWriter basket1=new PrintWriter(basket);
+            PrintWriter synthax1=new PrintWriter(synthax);
 
             String[] readFile = new String[numofLines];
 
@@ -44,27 +54,29 @@ public class part1 {
             // For loop to read the CSV files
             for (int j = 0; j < readFile.length; j++) {
                 try {
-                    FileReader reader = new FileReader(readFile[j]);// Creates an instance of the FileReader class
-                    BufferedReader filescsv = new BufferedReader(reader);
+                    // Creates an instance of the BufferedReader class
+                    BufferedReader filescsv = new BufferedReader(new FileReader(readFile[j]));
                     String line1 = filescsv.readLine();
-                    String[] fields = line1.split(",");// Splits the line of text at the ","
+                    String[] fields = line1.split(",");// Splits the line of text at the "," and stores the content in
+                                                       // array
                     int numofFields = fields.length;
-                    FileWriter write = new FileWriter("synthax_error_file");
-                    int empty = 0;
-                    String missingfield = "";
 
                     // Checks for synthax errors
                     while ((line1 = filescsv.readLine()) != null) {
                         try {
                             // Checks for the SportsName
-                            if (fields[1].equals("Football")) {
-                                System.out.println();
-                            } else if (fields[1].equals("Hokey")) {
-                                System.out.println();
-                            } else if (fields[1].equals("Basketball")) {
-                                System.out.println();
-                            } else {
+                            if (!(fields[1].equalsIgnoreCase("Football")) || !(fields[1].equalsIgnoreCase("Hokey"))
+                                    || !(fields[1].equalsIgnoreCase("Basketball"))) {
                                 throw new UnknownSportException("This sport does not exist");
+                            } else {
+                                if (fields[1].equalsIgnoreCase("Hokey")) {
+                                    hokey1.println(line1);
+                                } else if (fields[1].equalsIgnoreCase("Football")) {
+                                    football1.println(line1);
+
+                                } else if (fields[1].equalsIgnoreCase("Basketball")) {
+                                    basket1.println(line1);
+                                }
                             }
 
                             // Checks for the number of fields
@@ -75,23 +87,24 @@ public class part1 {
                             } else {
                                 for (int z = 0; z < numofFields; z++) {
                                     if (fields[i] == null || fields[i].isEmpty()) {
-                                        empty = i;
-                                        throw new MissingFieldException("Some fields are missing");
+                                        empty = z;
+                                        throw new MissingFieldException("Field is missing");
                                     }
-
                                 }
                             }
                         } catch (UnknownSportException u) {
+                            u.printStackTrace();
 
                         } catch (TooManyFieldsException m) {
-                            write.write("synthax error in file:" + filescsv
+                            synthax1.println("synthax error in file:" + filescsv
                                     + "\n=============\nError: Too many Fields\nRecord: " + line1 + "\n\n");
 
                         } catch (TooFewFieldsException f) {
-                            write.write("synthax error in file:" + filescsv
+                            synthax1.println("synthax error in file:" + filescsv
                                     + "\n=============\nError: Too few Fields\nRecord: " + line1 + "\n\n");
 
                         } catch (MissingFieldException s) {
+                            String missingfield = "";
 
                             // Checks which field is missing
                             if (empty == 0) {
@@ -105,19 +118,17 @@ public class part1 {
                             } else if (empty == 4) {
                                 missingfield = "championship field is missing";
                             }
-                            write.write("synthax error in file:" + filescsv + "\n=============\nError: " + missingfield
-                                    + "\nRecord: " + line1);
-
+                            synthax1.println("synthax error in file:" + filescsv + "\n=============\nError: " + missingfield
+                                    + "\nRecord: " + line1+"\n\n");
                         }
+
                     }
-                    reader.close();// Closes the reader
+                    filescsv.close();// Closes the filescsv
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
