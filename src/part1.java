@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.File;
 
 public class part1 {
     public static void main(String[] args) {
@@ -13,7 +12,7 @@ public class part1 {
             line = buffer.readLine();// Contains the files to read
             int numberofLines = 0;
             int i = 0;
-            String[] readFile;
+            String[] readFile=new String[line.length()];
 
             // Loop to find the amount of lines we have in the txt
             while ((line = buffer.readLine()) != null) {
@@ -30,12 +29,14 @@ public class part1 {
             }
             buffer.close();
 
+            //For loop to read the CSV files
             for (int j = 0; j < readFile.length; j++) {
                     try{
                     FileReader reader=new FileReader(readFile[j]);
                     int files=reader.read();
+                    //Checks if the line being read is not empty, if its empty, files=-1
                     while(files!=-1){
-                        System.out.println("Here is the content of the file you want to read: "+);
+                        System.out.println("Here is the content of the file you want to read: "+"Works");
                     }
                     reader.close();
                     }catch(IOException e){
