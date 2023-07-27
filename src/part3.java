@@ -13,11 +13,12 @@ import java.io.Serializable;
 
 public class part3 {
 	public static void main(String[] args) {
+		Scanner key = new Scanner(System.in);
 		BufferedReader br = null;
 		String[] BinaryFile = { "Basketball.csv.ser", "Football.csv.ser", "Hokey.csv.ser" }; // array of files to read
 		
 
-		// a for loop to read the information in the files
+		/*// a for loop to read the information in the files
 		for (int i = 0; i < BinaryFile.length; i++) {
 			try {
 				br = new BufferedReader(new FileReader(BinaryFile[i]));
@@ -37,10 +38,11 @@ public class part3 {
 					System.out.println("Information Not Found!");
 				}
 			}
-		}
+		}*/
 		
 		
 		//Deserialization of objects in the  binary files
+
 		for (int i = 0; i < BinaryFile.length; i++) {
 		try {
 			FileInputStream fileIn = new FileInputStream(BinaryFile[i]);
@@ -48,13 +50,15 @@ public class part3 {
 			System.out.println("Deserialized Data: \n" + in.readObject().toString());
 			in.close();
 			fileIn.close();
+		
 		}
 		catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage() + "not able to create the binary file!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			
 		}
 		}
 		
@@ -65,9 +69,11 @@ public class part3 {
 				
 				
 		//Interactive code that will navigate the user depending on their choices
-		Scanner key = new Scanner(System.in);
+		
 		String input = "";
 		String option = "";
+		int Option = 0;
+		int file = 0;
 		while (!input.equalsIgnoreCase("x")) {
 			
 		
@@ -84,12 +90,34 @@ public class part3 {
 			System.out.println("---------------------");
 			System.out.println("File Sub-Menu");
 			System.out.println("---------------------");
-			System.out.println("1" + "" + BinaryFile[0] + "(" + (BinaryFile[0]+1) + "records");
-			System.out.println("2" + "" + BinaryFile[1] + "(" + (BinaryFile[1]+1) + "records");
-			System.out.println("3" + "" + BinaryFile[2] + "(" + (BinaryFile[2]+1) + "records");
-			System.out.println("4" + "" + "Exit");
+			System.out.println("1." + " " + BinaryFile[0] + "(" + (BinaryFile[0]+1) + " records)");
+			System.out.println("2." + " " + BinaryFile[1] + "(" + (BinaryFile[1]+1) + " records)");
+			System.out.println("3." + " " + BinaryFile[2] + "(" + (BinaryFile[2]+1) + " records)");
+			System.out.println("4." + " " + "Exit");
+			System.out.println("---------------------");
+			System.out.println("Please enter your choice");
+			option = key.next();
+			int n = Integer.parseInt(option);
+			if(option.equalsIgnoreCase("x")) {
+				System.exit(0);
+			}
+			else if(n==0){
+				return;
+			}
+			else if (n>0) {
+				//for (int i = Option; i<Math.min(Option + option , BinaryFile.length); i++) {
+					
+				}
+			}
+				
+				
+			
 		}
+		
+		//break;
 		}
+		
+		
 		
 		
 		
@@ -117,4 +145,4 @@ public class part3 {
 		
 
 	}
-}
+
