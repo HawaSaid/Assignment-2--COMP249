@@ -177,9 +177,9 @@ public class Driver {
 			File semantic = new File("semantic_error_file.txt");
 			PrintWriter semantic1 = new PrintWriter(semantic);
 			for (int i = 0; i < fileName.length; i++) {
-				try {
-					BufferedReader buffer = new BufferedReader(new FileReader(fileName[i]));
-					String line = null;
+				BufferedReader buffer = new BufferedReader(new FileReader(fileName[i]));
+				String line = null;
+				try {			
 					while ((line = buffer.readLine()) != null) {
 
 						String[] anotherline = line.split(",");// Content of line stored in array anotherLine
@@ -221,7 +221,7 @@ public class Driver {
 							String score = anotherline[3];
 							String championship = anotherline[4];
 							Team obj = new Team(name, sport, year, score, championship);
-							if (anotherline[1].equals("Hokey")) {
+							if (anotherline[1].equals(" Hokey") || anotherline[1].equals("Hokey")) {
 								// Serialization
 								try {
 									ObjectOutputStream hokeyfile = new ObjectOutputStream(
@@ -232,8 +232,8 @@ public class Driver {
 									e.printStackTrace();
 								}
 
-								//It skips for football but why?
-							} else if (anotherline[1].equalsIgnoreCase(" Football")) {
+							} else if (anotherline[1].equalsIgnoreCase(" Football")
+									|| anotherline[1].equalsIgnoreCase("Football")) {
 								// Serialization
 								try {
 									ObjectOutputStream footballfile = new ObjectOutputStream(
@@ -243,7 +243,7 @@ public class Driver {
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-							} else if (anotherline[1].equals("Basketball")) {
+							} else if (anotherline[1].equals(" Basketball") || anotherline[1].equals("Basketball")) {
 								// Serialization
 								try {
 									ObjectOutputStream basketballfile = new ObjectOutputStream(
@@ -262,8 +262,9 @@ public class Driver {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				buffer.close();
 			}
-
+			
 			// Closes the PrintWriter
 			semantic1.close();
 
