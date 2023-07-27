@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +29,7 @@ public class Driver {
 			// Creates an instance of the BufferedReader class
 			BufferedReader buffer = new BufferedReader(new FileReader("Part1_input_file_names.txt"));
 			String line = null;
-			line = buffer.readLine();// Contains the files to read
+			line = buffer.readLine();
 
 			int numofLines = Integer.parseInt(line);// Turns string into integer to find the amount of lines we have in
 													// the txt
@@ -44,7 +45,7 @@ public class Driver {
 			PrintWriter basket1 = new PrintWriter(basket);
 			PrintWriter synthax1 = new PrintWriter(synthax);
 
-			String[] readFile = new String[numofLines];
+			String[] readFile = new String[numofLines];// Array containing the names of each file
 
 			// Loop to read the txt files containing the CSV files
 			while ((line = buffer.readLine()) != null) {
@@ -87,7 +88,6 @@ public class Driver {
 								throw new TooManyFieldsException("To many fields");
 							} else if (numofFields < 5) {
 								throw new TooFewFieldsException("Not enough fields");
-								// This else never works porque tho?
 							} else {
 								for (int z = 0; z < fields.length; z++) {
 									if (fields[z] == null || fields[z].trim().isEmpty()) {
@@ -173,14 +173,9 @@ public class Driver {
 		String[] fileName = { "Basketball.csv", "Football.csv", "Hokey.csv" }; // array of csv files to read
 
 		try {
+
 			File semantic = new File("semantic_error_file.txt");
-			File hokey2 = new File("Hokey.csv.ser");
-			File football2 = new File("Football.csv.ser");
-			File basketball = new File("Basketball.csv.ser");
 			PrintWriter semantic1 = new PrintWriter(semantic);
-			PrintWriter hokey3 = new PrintWriter(hokey2);
-			PrintWriter football3 = new PrintWriter(football2);
-			PrintWriter basketball1 = new PrintWriter(basketball);
 			for (int i = 0; i < fileName.length; i++) {
 				try {
 					BufferedReader buffer = new BufferedReader(new FileReader(fileName[i]));
@@ -213,28 +208,53 @@ public class Driver {
 									+ "\n======================================\nError:" + e1.getMessage() + "\nRecord:"
 									+ line + "\n\n");
 						}
-						String[] validate = anotherline[4].split("-");
+						String[] validate = anotherline[3].split("-");
 						int check = validate.length;
-						boolean record = false;
+						boolean record = check == 2 && anotherline[3] != null;
 						boolean verify = ((anotherline[2].equals("2001")) || (anotherline[2].equals("2011"))
-								|| anotherline[2].equals("2019")) && (check == 2);
+								|| anotherline[2].equals("2019"));
 
-						if (verify) {
-							record = false;
-							// For loop to check if each cell of the array is either empty or blank
-							if (anotherline[3] == null || anotherline[3].trim().isEmpty()) {
-								record = true;
-								break;
-							}
-							if (!record) {
-								if (line.contains("Hokey")) {
-									hokey3.println(line);
-								} else if (line.contains("Football")) {
-									football3.println(line);
-								} else if (line.contains("Basketball")) {
-									basketball1.println(line);
+						if (record && verify) {
+							String name = anotherline[0];
+							String sport = anotherline[1];
+							String year = anotherline[2];
+							String score = anotherline[3];
+							String championship = anotherline[4];
+							Team obj = new Team(name, sport, year, score, championship);
+							if (anotherline[1].equals("Hokey")) {
+								// Serialization
+								try {
+									ObjectOutputStream hokeyfile = new ObjectOutputStream(
+											new FileOutputStream("Hokey.csv.ser"));
+									hokeyfile.writeObject(obj);
+									hokeyfile.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								//It skips for football but why?
+							} else if (anotherline[1].equalsIgnoreCase(" Football")) {
+								// Serialization
+								try {
+									ObjectOutputStream footballfile = new ObjectOutputStream(
+											new FileOutputStream("Football.csv.ser"));
+									footballfile.writeObject(obj);
+									footballfile.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							} else if (anotherline[1].equals("Basketball")) {
+								// Serialization
+								try {
+									ObjectOutputStream basketballfile = new ObjectOutputStream(
+											new FileOutputStream("Basketball.csv.ser"));
+									basketballfile.writeObject(obj);
+									basketballfile.close();
+								} catch (IOException e) {
+									e.printStackTrace();
 								}
 							}
+
 						}
 
 					}
@@ -243,7 +263,10 @@ public class Driver {
 					e.printStackTrace();
 				}
 			}
+
+			// Closes the PrintWriter
 			semantic1.close();
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

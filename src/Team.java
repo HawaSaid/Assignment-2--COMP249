@@ -11,12 +11,12 @@ import java.io.Serializable;
 public class Team implements Serializable {
     String name;
     String sport;
-    int year;
+    String year;
     String score;
-    char championship;
+    String championship;
 
 
-    public Team(String name, String sport, int year, String score, char championship) {//Custom constructor
+    public Team(String name, String sport, String year, String score, String championship) {//Custom constructor
         this.name = name;
         this.sport = sport;
         this.year = year;
@@ -40,11 +40,11 @@ public class Team implements Serializable {
         return sport;
     }
 
-    public void setYear(int year) {//Setter for the int year
+    public void setYear(String year) {//Setter for the String year
         this.year = year;
     }
 
-    public int getYear() {//Getter for the int year
+    public String getYear() {//Getter for the String year
         return year;
     }
 
@@ -56,11 +56,11 @@ public class Team implements Serializable {
         return score;
     }
 
-    public void setChampionship(char championship) {//Setter for the character championship
+    public void setChampionship(String championship) {//Setter for the String championship
         this.championship = championship;
     }
 
-    public char getChampionship() {//Getter for the character championship
+    public String getChampionship() {//Getter for the String championship
         return championship;
     }
 
@@ -77,8 +77,8 @@ public class Team implements Serializable {
         } else {
             //downcast object obj into a Team object
             Team obj1 = (Team) obj;
-            if (name.equals(obj1.name) && sport.equals(obj1.sport) && year == obj1.year && score.equals(obj1.score)
-                    && championship == obj1.championship) {
+            if (name.equals(obj1.name) && sport.equals(obj1.sport) && year.equals(obj1.year) && score.equals(obj1.score)
+                    && championship.equals(obj1.championship)) {
                 return true;
             } else {
                 return false;
