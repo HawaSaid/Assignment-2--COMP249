@@ -15,7 +15,7 @@ import java.io.File;
 
 public class part1 {
 
-    public static void main(String[] args) {
+    public void do_part1() {
 
         // Try-catch block to handle IO exception
         try {
@@ -116,33 +116,33 @@ public class part1 {
                                 missingfield = "championship field is missing";
                             }
                             synthax1.println(
-                                    "synthax error in file:" + readFile[j] + "\n======================================\nError: " + missingfield
+                                    "synthax error in file:" + readFile[j]
+                                            + "\n======================================\nError: " + missingfield
                                             + "\nRecord: " + line1 + "\n\n");
                         }
-                        boolean Empty=false;
-                       boolean validate=(line1.contains("Hokey")||line1.contains("Football")||line1.contains("Basketball"))&&numofFields==5;
-                       //If statement to check what happens when boolean validate is true
-                       if(validate){
-                        Empty=false;
-                        //For loop to check if each cell of the array is either empty or blank
-                        for(int h=0;h<numofFields;h++){
-                            if(fields[h] == null || fields[h].trim().isEmpty()){
-                                Empty=true;
-                                break;
+                        boolean Empty = false;
+                        boolean validate = (line1.contains("Hokey") || line1.contains("Football")
+                                || line1.contains("Basketball")) && numofFields == 5;
+                        // If statement to check what happens when boolean validate is true
+                        if (validate) {
+                            Empty = false;
+                            // For loop to check if each cell of the array is either empty or blank
+                            for (int h = 0; h < numofFields; h++) {
+                                if (fields[h] == null || fields[h].trim().isEmpty()) {
+                                    Empty = true;
+                                    break;
+                                }
+                            }
+                            if (!Empty) {
+                                if (line1.contains("Hokey")) {
+                                    hokey1.println(line1);
+                                } else if (line1.contains("Football")) {
+                                    football1.println(line1);
+                                } else if (line1.contains("Basketball")) {
+                                    basket1.println(line1);
+                                }
                             }
                         }
-                        if(!Empty){
-                            if(line1.contains("Hokey")){
-                                hokey1.println(line1);
-                            }
-                            else if(line1.contains("Football")){
-                                football1.println(line1);
-                            }
-                            else if(line1.contains("Basketball")){
-                                basket1.println(line1);
-                            }
-                        }
-                       }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
