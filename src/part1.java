@@ -51,32 +51,28 @@ public class part1 {
 
             // For loop to read the CSV files
             for (int j = 0; j < readFile.length; j++) {
+                BufferedReader filescsv = new BufferedReader(new FileReader(readFile[j]));
+                String line1;// Reads each line of the csv file
                 try {
-                    // Creates an instance of the BufferedReader class
-                    BufferedReader filescsv = new BufferedReader(new FileReader(readFile[j]));
-                    String line1 = filescsv.readLine();
-                    String[] fields = line1.split(",");// Splits the line of text at the "," and stores the content in
-                                                       // array
-                    // Checks for synthax errors
+                    // Creates an instance of the BufferedReader class to read each csv file
+                    // Checks for synthax errors when line1 is not equal to null
                     while ((line1 = filescsv.readLine()) != null) {
+                        String[] fields = line1.split(",");// Splits the line of text at the "," and stores the content
+                                                           // in array fields
                         int numofFields = fields.length;
                         try {
                             // Checks if the String "Hokey","Basketball"&"Football" is in the String line1
                             if (!(line1.contains("Hokey")) && !(line1.contains("Basketball"))
                                     && !(line1.contains("Football"))) {
-                                throw new UnknownSportException("Unknown sport field");// Throws exception if not in line1
+                                throw new UnknownSportException("Unknown sport field");// Throws exception if not in
+                                                                                       // line1
                             }
                         } catch (UnknownSportException u) {
                             synthax1.println("synthax error in file:" + readFile[j]
-                                    + "\n=============\nError:"+u.getMessage()+"\nRecord:" + line1 + "\n\n");// Prints
-                                                                                                                // this
-                                                                                                                // in
-                                                                                                                // the
-                                                                                                                // syntax
-                                                                                                                // error
-                                                                                                                // txt
+                                    + "\n======================================\nError:" + u.getMessage() + "\nRecord:"
+                                    + line1 + "\n\n");
                         }
-                        int empty = 0;
+                        int empty = -1;// Shows there's no empty file
                         // Checks for the number of fields
 
                         try {
@@ -85,31 +81,25 @@ public class part1 {
                                 throw new TooManyFieldsException("To many fields");
                             } else if (numofFields < 5) {
                                 throw new TooFewFieldsException("Not enough fields");
+                                // This else never works porque tho?
                             } else {
-                                for (int z = 0; z < numofFields; z++) {
-                                    if (fields[z] == null || fields[z].isEmpty()) {
+                                for (int z = 0; z < fields.length; z++) {
+                                    if (fields[z] == null || fields[z].trim().isEmpty()) {
                                         empty = z;
                                         throw new MissingFieldException("Field is missing");
                                     }
                                 }
                             }
-                            if (line1.contains("Hokey") && numofFields == 5
-                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
-                                hokey1.println(line1);
-                            } else if (line1.contains("Basketball") && numofFields == 5
-                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
-                                basket1.println(line1);
-                            } else if (line1.contains("Football") && numofFields == 5
-                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
-                                football1.println(line1);
-                            }
                         } catch (TooManyFieldsException m) {
                             synthax1.println("synthax error in file:" + readFile[j]
-                                    + "\n=============\nError: Too many Fields\nRecord: " + line1 + "\n\n");
+                                    + "\n======================================\nError: Too many Fields\nRecord: "
+                                    + line1 + "\n\n");
 
                         } catch (TooFewFieldsException f) {
                             synthax1.println("synthax error in file:" + readFile[j]
-                                    + "\n=============\nError: Too few Fields\nRecord: " + line1 + "\n\n");
+                                    + "\n======================================\nError: Too few Fields\nRecord: "
+                                    + line1
+                                    + "\n\n");
 
                         } catch (MissingFieldException s) {
                             String missingfield = "";
@@ -126,15 +116,39 @@ public class part1 {
                                 missingfield = "championship field is missing";
                             }
                             synthax1.println(
-                                    "synthax error in file:" + readFile[j] + "\n=============\nError: " + missingfield
+                                    "synthax error in file:" + readFile[j] + "\n======================================\nError: " + missingfield
                                             + "\nRecord: " + line1 + "\n\n");
                         }
-
+                        boolean Empty=false;
+                       boolean validate=(line1.contains("Hokey")||line1.contains("Football")||line1.contains("Basketball"))&&numofFields==5;
+                       //If statement to check what happens when boolean validate is true
+                       if(validate){
+                        Empty=false;
+                        //For loop to check if each cell of the array is either empty or blank
+                        for(int h=0;h<numofFields;h++){
+                            if(fields[h] == null || fields[h].trim().isEmpty()){
+                                Empty=true;
+                                break;
+                            }
+                        }
+                        if(!Empty){
+                            if(line1.contains("Hokey")){
+                                hokey1.println(line1);
+                            }
+                            else if(line1.contains("Football")){
+                                football1.println(line1);
+                            }
+                            else if(line1.contains("Basketball")){
+                                basket1.println(line1);
+                            }
+                        }
+                       }
                     }
-                    filescsv.close();// Closes the filescsv
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                filescsv.close();// Closes the filescsv
+
             }
             // Closes all printWriters
             hokey1.close();
