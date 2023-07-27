@@ -1,3 +1,4 @@
+
 /**
 * Hawa-Afnane Said (ID:40263400)
 * Haifaa Janoudi (ID:40263748)
@@ -14,13 +15,12 @@ import java.io.File;
 
 public class part1 {
 
-    public static void do_part1() {
+    public static void main(String[] args) {
 
         // Try-catch block to handle IO exception
         try {
             // Creates an instance of the BufferedReader class
             BufferedReader buffer = new BufferedReader(new FileReader("Part1_input_file_names.txt"));
-            int empty = 0;
             String line = null;
             line = buffer.readLine();// Contains the files to read
 
@@ -29,9 +29,9 @@ public class part1 {
 
             int i = 0;
 
-            File hokey = new File("Hokey.csv.txt");
-            File football = new File("Football.csv.txt");
-            File basket = new File("Basketball.csv.txt");
+            File hokey = new File("Hokey.csv");
+            File football = new File("Football.csv");
+            File basket = new File("Basketball.csv");
             File synthax = new File("synthax_error_file.txt");
             PrintWriter hokey1 = new PrintWriter(hokey);
             PrintWriter football1 = new PrintWriter(football);
@@ -44,7 +44,6 @@ public class part1 {
             while ((line = buffer.readLine()) != null) {
 
                 // Array of type String created to store the CSV files in the txt file
-
                 readFile[i] = line;// Content of file stored in readFile array
                 i++;
             }
@@ -58,53 +57,62 @@ public class part1 {
                     String line1 = filescsv.readLine();
                     String[] fields = line1.split(",");// Splits the line of text at the "," and stores the content in
                                                        // array
-                    int numofFields = fields.length;
-
                     // Checks for synthax errors
                     while ((line1 = filescsv.readLine()) != null) {
+                        int numofFields = fields.length;
                         try {
-                            // Checks for the SportsName
-                            if (!(fields[1].equalsIgnoreCase("Football")) || !(fields[1].equalsIgnoreCase("Hokey"))
-                                    || !(fields[1].equalsIgnoreCase("Basketball"))) {
-                                throw new UnknownSportException("This sport does not exist");
-                            } else {
-                                if (fields[1].equalsIgnoreCase("Hokey")) {
-                                    hokey1.println(line1);
-                                } else if (fields[1].equalsIgnoreCase("Football")) {
-                                    football1.println(line1);
-
-                                } else if (fields[1].equalsIgnoreCase("Basketball")) {
-                                    basket1.println(line1);
-                                }
+                            // Checks if the String "Hokey","Basketball"&"Football" is in the String line1
+                            if (!(line1.contains("Hokey")) && !(line1.contains("Basketball"))
+                                    && !(line1.contains("Football"))) {
+                                throw new UnknownSportException("Unknown sport field");// Throws exception if not in line1
                             }
+                        } catch (UnknownSportException u) {
+                            synthax1.println("synthax error in file:" + readFile[j]
+                                    + "\n=============\nError:"+u.getMessage()+"\nRecord:" + line1 + "\n\n");// Prints
+                                                                                                                // this
+                                                                                                                // in
+                                                                                                                // the
+                                                                                                                // syntax
+                                                                                                                // error
+                                                                                                                // txt
+                        }
+                        int empty = 0;
+                        // Checks for the number of fields
 
-                            // Checks for the number of fields
+                        try {
+                            // Checks numofFields
                             if (numofFields > 5) {
                                 throw new TooManyFieldsException("To many fields");
                             } else if (numofFields < 5) {
                                 throw new TooFewFieldsException("Not enough fields");
                             } else {
                                 for (int z = 0; z < numofFields; z++) {
-                                    if (fields[i] == null || fields[i].isEmpty()) {
+                                    if (fields[z] == null || fields[z].isEmpty()) {
                                         empty = z;
                                         throw new MissingFieldException("Field is missing");
                                     }
                                 }
                             }
-                        } catch (UnknownSportException u) {
-                            u.printStackTrace();
-
+                            if (line1.contains("Hokey") && numofFields == 5
+                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
+                                hokey1.println(line1);
+                            } else if (line1.contains("Basketball") && numofFields == 5
+                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
+                                basket1.println(line1);
+                            } else if (line1.contains("Football") && numofFields == 5
+                                    && (!(fields[j] == null) || fields[j].isEmpty())) {
+                                football1.println(line1);
+                            }
                         } catch (TooManyFieldsException m) {
-                            synthax1.println("synthax error in file:" + filescsv
+                            synthax1.println("synthax error in file:" + readFile[j]
                                     + "\n=============\nError: Too many Fields\nRecord: " + line1 + "\n\n");
 
                         } catch (TooFewFieldsException f) {
-                            synthax1.println("synthax error in file:" + filescsv
+                            synthax1.println("synthax error in file:" + readFile[j]
                                     + "\n=============\nError: Too few Fields\nRecord: " + line1 + "\n\n");
 
                         } catch (MissingFieldException s) {
                             String missingfield = "";
-
                             // Checks which field is missing
                             if (empty == 0) {
                                 missingfield = "TeamName field is missing";
@@ -118,26 +126,24 @@ public class part1 {
                                 missingfield = "championship field is missing";
                             }
                             synthax1.println(
-                                    "synthax error in file:" + filescsv + "\n=============\nError: " + missingfield
+                                    "synthax error in file:" + readFile[j] + "\n=============\nError: " + missingfield
                                             + "\nRecord: " + line1 + "\n\n");
                         }
 
                     }
-                    // Closes all printWriters
-                    hokey1.close();
-                    football1.close();
-                    basket1.close();
-                    synthax1.close();
-
                     filescsv.close();// Closes the filescsv
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            // Closes all printWriters
+            hokey1.close();
+            football1.close();
+            basket1.close();
+            synthax1.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

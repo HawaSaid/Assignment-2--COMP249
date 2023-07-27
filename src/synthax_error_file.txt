@@ -1,0 +1,36 @@
+synthax error in file:games2001.csv 
+=============
+Error: unknown sport field
+Record: Avalanche, ABC,1111, 52-16, Y 
+
+
+synthax error in file:games2011.csv 
+=============
+Error: unknown sport field
+Record: BlackJacks ,abdc,2011,20-30,N
+
+
+synthax error in file:games2019.csv
+=============
+Error: Too few Fields
+Record:  Canadiens, Hokey,2019, 36 31, N,
+
+
+synthax error in file:games2019.csv
+=============
+Error: Too few Fields
+Record:  Stampeders, Football,2019, 3-2, Y, y
+
+
+synthax error in file:games2019.csv
+=============
+Error: Too few Fields
+Record: Hitmen ,Hokey,2019,20-60,N,
+
+
+synthax error in file:games2019.csv
+=============
+Error: Too few Fields
+Record: Lightning ,Basketball,2019,30-30,N,
+
+
