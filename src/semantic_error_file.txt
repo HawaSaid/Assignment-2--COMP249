@@ -1,0 +1,12 @@
+synthax error in file:Hokey.csv
+======================================
+Error:Bad year for field
+Record:Avalanche, Hokey,1111, 52-16, Y
+
+
+synthax error in file:Hokey.csv
+======================================
+Error:Bad record for field
+Record: Canadiens, Hokey,2019, 36 31, N,
+
+
