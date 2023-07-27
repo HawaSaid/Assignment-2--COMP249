@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,16 +10,14 @@ public class part2 {
 
 	public static void main(String[] args) {
 		BufferedReader br = null;
-		String[] fileName = { "Basketball.csv", "Football.csv", "Hokey.csv" }; // array of files to read
+		String[] fileName = { "Basketball.csv", "Football.csv", "Hokey.csv" }; // array of csv files to read
 
-		// a for loop to read the information in the files
+		// for loop to read the information in the files
 		for (int i = 0; i < fileName.length; i++) {
 			try {
 				br = new BufferedReader(new FileReader(fileName[i]));
-				System.out.println("Reading the content of each file:");
 				String contentLine = br.readLine();
 				while (contentLine != null) {
-					System.out.println(contentLine);
 					contentLine = br.readLine();
 				}
 			} catch (IOException ioe) {
@@ -40,8 +36,6 @@ public class part2 {
 
 	File Semantic = new File("semantic_error_file.txt");
 	PrintWriter Semantic1 = null;
-	
-	
 
 	public static void semanticException(int year, String Record)
 			throws BadRecordException, BadYearException, FileNotFoundException {
