@@ -288,32 +288,82 @@ public class Driver {
 				Team[] arr1 = new Team[numofObjperfile[1]];
 				Team[] arr2 = new Team[numofObjperfile[2]];
 				Team[] finalarr = new Team[12];
-				int keepstrack = 0;
+				int keepstrack=0;
 
 				if (numofObjperfile[0] == 2) {
 					for (int j = 0; j < numofObjperfile[0]; j++) {
 						arr[j] = (Team) in.readObject();
 					}
-				}
-				if (numofObjperfile[1] == 5)
+				} else if (numofObjperfile[1] == 5)
 					for (int j = 0; j < numofObjperfile[1]; j++) {
 						arr1[j] = (Team) in.readObject();
 					}
-				if (numofObjperfile[2] == 5) {
+				else if (numofObjperfile[2] == 5) {
 					for (int j = 0; j < numofObjperfile[2]; j++) {
 						arr2[j] = (Team) in.readObject();
 					}
 				}
-				// Storing the content in the finalarr array
-				for (int z = 0; z < arr.length; z++) {
-					finalarr[keepstrack++] = arr[z];
+				//Storing the content in the finalarr array
+				for(int z=0;z<arr.length;z++){
+					finalarr[keepstrack++]=arr[z];
 				}
-				for (int z = 0; z < arr1.length; z++) {
-					finalarr[keepstrack++] = arr1[z];
+				for(int z=0;z<arr1.length;z++){
+					finalarr[keepstrack++]=arr1[z];
 				}
-				for (int z = 0; z < arr2.length; z++) {
-					finalarr[keepstrack++] = arr2[z];
+				for(int z=0;z<arr2.length;z++){
+					finalarr[keepstrack++]=arr2[z];
 				}
+				
+				Scanner keys = new Scanner(System.in);
+				int n = 0;
+				int h = 0;
+				
+				do {
+					System.out.println("Enter a value from 0 to x");
+					n = keys.nextInt();
+					if ( n==0)
+						break;
+					else if (n > 0)
+						for (int k = 0; k <= n-1; k++) {
+							if ( h + k < finalarr.length) {
+								System.out.println(finalarr[h+k]);
+					if (k == n-1)
+						h = h + k;
+					else {
+						System.out.println("EOF has beeen reached");
+						h= finalarr.length -1;
+						break;
+					}
+				}
+							
+					
+							else {
+								int l = ((-1)*n)-1;
+								int r = 0;
+								int values  = 0;
+								for (  k = l; k >=0; k--) {
+									if ( h- k <0) {
+										System.out.println("BOF has beeen reached");
+										k = h + 1;
+										
+									}
+									else {
+										if (values == 0)
+											r = 0;
+											r = i - k;
+										System.out.println(finalarr[i-k]);
+									}
+									
+								}
+							}
+							
+						}
+				}
+				while ( n != 0);
+				
+				
+				
+				
 				// Closes the FileInputStream & ObjectInputStream
 				in.close();
 				fileIn.close();
@@ -324,89 +374,46 @@ public class Driver {
 			e1.printStackTrace();
 		}
 		// Interactive code that will navigate the user depending on their choices
-				Scanner key = new Scanner(System.in);
-				//char input;
-				String option = "";
-				int FileValue = 0;
-				   
+		Scanner key = new Scanner(System.in);
+		//char input;
+		String option = "";
+		int FileValue = 0;
+		
 
-					System.out.println("---------------------");
-					System.out.println("Main Menu");
-					System.out.println("---------------------");
-					System.out.println("v View the selected file: " + ((BinaryFile[0]) + "\n "  + (BinaryFile[1]) + "\n " + (BinaryFile[2]) 
-							+ "(" + numofObjperfile[0] + "records)"));
-					System.out.println("s Select a file to view:");
-					System.out.println("x Exit");
-					System.out.println("---------------------");
-					System.out.println("Kindly,enter your choice");
-					
-					char input = key.next().charAt(0);
-					
-					if (input == 's' || input == 'S') {
-						System.out.println("---------------------");
-						System.out.println("File Sub-Menu");
-						System.out.println("---------------------");
-						System.out.println("1 " + "" + BinaryFile[0] + "(" + (numofObjperfile[0]) + " records)");
-						System.out.println("2 " + "" + BinaryFile[1] + "(" + (numofObjperfile[1]) + " records)");
-						System.out.println("3 " + "" + BinaryFile[2] + "(" + (numofObjperfile[2]) + " records)");
-						System.out.println("4 " + "" + "Exit");
-						System.out.println("---------------------");
-						System.out.println("Kindly,enter your choice");
-						
-					}
-					else if (input == 'v' || input == 'V') {
-						System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
-								+ "(" + numofObjperfile[2] + "records)"));
-					}
-					Scanner in = new Scanner(System.in);
-					int n = 0;
-					int h = 0;
-					
-					do {
-						System.out.println("Enter a value from 0 to x");
-						n = in.nextInt();
-						if ( n==0)
-							break;
-						else if (n > 0)
-							for (int k = 0; k <= n-1; k++) {
-								if ( h + k < finalarr.length()) {
-									System.out.println(finalarr[h+k]);
-						if (k == n-1)
-							h = h + k;
-						else {
-							System.out.println("EOF has beeen reached");
-							h= finalarr.length -1;
-							break;
-						}
-					}
-								
-						
-								else {
-									int l = ((-1)*n)-1;
-									int r = 0;
-									int values  = 0;
-									for (  k = l; k >=0; k--) {
-										if ( h- k <0) {
-											System.out.println("BOF has beeen reached");
-											k = h + 1;
-											r = 0;
-										}
-										else {
-											if (values == 0)
-												r = i - k;
-											System.out.println(finalarr[i-k]);
-										}
-										
-									}
-								}
-								
-							}
-					}
-					while ( n != 0);
-					}
-				}
-
+			System.out.println("---------------------");
+			System.out.println("Main Menu");
+			System.out.println("---------------------");
+			System.out.println("v View the selected file: " + ((BinaryFile[0]) + "\n "  + (BinaryFile[1]) + "\n " + (BinaryFile[2]) 
+					+ "(" + numofObjperfile[0] + "records)"));
+			System.out.println("s Select a file to view:");
+			System.out.println("x Exit");
+			System.out.println("---------------------");
+			System.out.println("Kindly,enter your choice");
 			
+			char input = key.next().charAt(0);
+			
+			if (input == 's' || input == 'S') {
+				System.out.println("---------------------");
+				System.out.println("File Sub-Menu");
+				System.out.println("---------------------");
+				System.out.println("1 " + "" + BinaryFile[0] + "(" + (numofObjperfile[0]) + " records)");
+				System.out.println("2 " + "" + BinaryFile[1] + "(" + (numofObjperfile[1]) + " records)");
+				System.out.println("3 " + "" + BinaryFile[2] + "(" + (numofObjperfile[2]) + " records)");
+				System.out.println("4 " + "" + "Exit");
+				System.out.println("---------------------");
+				System.out.println("Kindly,enter your choice");
+				 input = key.next().charAt(0);
+			}
+			else if (input == 'v' || input == 'V') {
+				System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
+						+ "(" + numofObjperfile[2] + "records)"));
+			}
+				
+			
+			}
+		}
+
+	
 
 
 
