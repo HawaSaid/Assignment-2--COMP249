@@ -382,39 +382,50 @@ public class Driver {
 			System.out.println("---------------------");
 			System.out.println("Main Menu");
 			System.out.println("---------------------");
-			System.out.println("v View the selected file: " + ((BinaryFile[0]) + "\n "  + (BinaryFile[1]) + "\n " + (BinaryFile[2]) 
-					+ "(" + numofObjperfile[0] + "records)"));
+			System.out.println("v View the selected file:" );
 			System.out.println("s Select a file to view:");
 			System.out.println("x Exit");
 			System.out.println("---------------------");
 			System.out.println("Kindly,enter your choice");
 			
 			char input = key.next().charAt(0);
-			
+			do {
 			if (input == 's' || input == 'S') {
 				System.out.println("---------------------");
 				System.out.println("File Sub-Menu");
 				System.out.println("---------------------");
-				System.out.println("1 " + "" + BinaryFile[0] + "(" + (numofObjperfile[0]) + " records)");
-				System.out.println("2 " + "" + BinaryFile[1] + "(" + (numofObjperfile[1]) + " records)");
-				System.out.println("3 " + "" + BinaryFile[2] + "(" + (numofObjperfile[2]) + " records)");
+				System.out.println("1 " + "" + BinaryFile[0] + " (" + (numofObjperfile[0]) + " records)");
+				System.out.println("2 " + "" + BinaryFile[1] + " (" + (numofObjperfile[1]) + " records)");
+				System.out.println("3 " + "" + BinaryFile[2] + " (" + (numofObjperfile[2]) + " records)");
 				System.out.println("4 " + "" + "Exit");
 				System.out.println("---------------------");
 				System.out.println("Kindly,enter your choice");
 				 input = key.next().charAt(0);
 			}
 			else if (input == 'v' || input == 'V') {
-				System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
-						+ "(" + numofObjperfile[2] + "records)"));
+				System.out.println("Viewing: " + BinaryFile[0] + " (" + (numofObjperfile[0]) + " records)");
+				System.out.println("Kindly,enter your choice");
+				 input = key.next().charAt(0);
 			}
-			else if (input =='x' || input =='X') 
-				break;
+			else if (input == 'x' || input =='X') {
+				System.out.println("Exiting the program");
+				System.out.println("---------------------");
+				System.out.println("Kindly,enter your choice");
+				 input = key.next().charAt(0);
+				
+				}
 			
-			key.close();
 			}
-		}
+			while (input != 'x' || input !='X');
+			
+	
+	
+	}
+	
+			
+
+		 
+			}
+		
 
 	
-
-
-
