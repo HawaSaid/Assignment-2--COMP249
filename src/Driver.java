@@ -367,6 +367,7 @@ public class Driver {
 				// Closes the FileInputStream & ObjectInputStream
 				in.close();
 				fileIn.close();
+				keys.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -376,8 +377,6 @@ public class Driver {
 		// Interactive code that will navigate the user depending on their choices
 		Scanner key = new Scanner(System.in);
 		//char input;
-		String option = "";
-		int FileValue = 0;
 		
 
 			System.out.println("---------------------");
@@ -408,8 +407,10 @@ public class Driver {
 				System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
 						+ "(" + numofObjperfile[2] + "records)"));
 			}
-				
+			else if (input =='x' || input =='X') 
+				break;
 			
+			key.close();
 			}
 		}
 
