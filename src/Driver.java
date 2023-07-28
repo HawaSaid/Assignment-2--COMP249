@@ -288,30 +288,31 @@ public class Driver {
 				Team[] arr1 = new Team[numofObjperfile[1]];
 				Team[] arr2 = new Team[numofObjperfile[2]];
 				Team[] finalarr = new Team[12];
-				int keepstrack=0;
+				int keepstrack = 0;
 
 				if (numofObjperfile[0] == 2) {
 					for (int j = 0; j < numofObjperfile[0]; j++) {
 						arr[j] = (Team) in.readObject();
 					}
-				} else if (numofObjperfile[1] == 5)
+				}
+				if (numofObjperfile[1] == 5)
 					for (int j = 0; j < numofObjperfile[1]; j++) {
 						arr1[j] = (Team) in.readObject();
 					}
-				else if (numofObjperfile[2] == 5) {
+				if (numofObjperfile[2] == 5) {
 					for (int j = 0; j < numofObjperfile[2]; j++) {
 						arr2[j] = (Team) in.readObject();
 					}
 				}
-				//Storing the content in the finalarr array
-				for(int z=0;z<arr.length;z++){
-					finalarr[keepstrack++]=arr[z];
+				// Storing the content in the finalarr array
+				for (int z = 0; z < arr.length; z++) {
+					finalarr[keepstrack++] = arr[z];
 				}
-				for(int z=0;z<arr1.length;z++){
-					finalarr[keepstrack++]=arr1[z];
+				for (int z = 0; z < arr1.length; z++) {
+					finalarr[keepstrack++] = arr1[z];
 				}
-				for(int z=0;z<arr2.length;z++){
-					finalarr[keepstrack++]=arr2[z];
+				for (int z = 0; z < arr2.length; z++) {
+					finalarr[keepstrack++] = arr2[z];
 				}
 				// Closes the FileInputStream & ObjectInputStream
 				in.close();
