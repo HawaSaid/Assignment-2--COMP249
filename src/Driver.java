@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 /**
  * Hawa-Afnane Said (ID:40263400)
@@ -356,10 +357,9 @@ public class Driver {
 						System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
 								+ "(" + numofObjperfile[2] + "records)"));
 					}
-						
 					Scanner in = new Scanner(System.in);
 					int n = 0;
-					int i = 0;
+					int h = 0;
 					
 					do {
 						System.out.println("Enter a value from 0 to x");
@@ -368,24 +368,44 @@ public class Driver {
 							break;
 						else if (n > 0)
 							for (int k = 0; k <= n-1; k++) {
-								if ( i + k < finalarr.length()) {
-									System.out.println(finalarr[i+k]);
+								if ( h + k < finalarr.length()) {
+									System.out.println(finalarr[h+k]);
 						if (k == n-1)
-							i = k+1;
+							h = h + k;
 						else {
 							System.out.println("EOF has beeen reached");
+							h= finalarr.length -1;
 							break;
 						}
-							
+					}
+								
 						
-								}
 								else {
 									int l = ((-1)*n)-1;
 									int r = 0;
+									int values  = 0;
+									for (  k = l; k >=0; k--) {
+										if ( h- k <0) {
+											System.out.println("BOF has beeen reached");
+											k = h + 1;
+											r = 0;
+										}
+										else {
+											if (values == 0)
+												r = i - k;
+											System.out.println(finalarr[i-k]);
+										}
+										
+									}
 								}
+								
 							}
 					}
+					while ( n != 0);
 					}
 				}
 
 			
+
+
+
