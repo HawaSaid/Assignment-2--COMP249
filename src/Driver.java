@@ -1,12 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
-import java.util.Scanner;
 import java.io.ObjectOutputStream;
 
 /**
@@ -22,7 +19,7 @@ public class Driver {
 	public static void main(String[] args) {
 		do_part1();
 		do_part2();
-		do_part3();
+		// do_part3();
 	}
 
 	public static void do_part1() {
@@ -77,8 +74,7 @@ public class Driver {
 								throw new UnknownSportException("Unknown sport field");// Throws exception if not in
 																						// line1
 							}
-						} catch (UnknownSportException u) {// Prints segment showing error and what line throws this
-															// error
+						} catch (UnknownSportException u) {
 							synthax1.println("synthax error in file:" + readFile[j]
 									+ "\n======================================\nError:" + u.getMessage() + "\nRecord:"
 									+ line1 + "\n\n");
@@ -134,7 +130,7 @@ public class Driver {
 						boolean validate = (line1.contains("Hokey") || line1.contains("Football")
 								|| line1.contains("Basketball")) && numofFields == 5;
 
-						// If statement checking if validate is true
+						// If statement to check what happens when boolean validate is true
 						if (validate) {
 							Empty = false;
 							// For loop to check if each cell of the array is either empty or blank
@@ -144,7 +140,6 @@ public class Driver {
 									break;
 								}
 							}
-							// If statement to print the data in line1 in either one of the three csv files
 							if (!Empty) {
 								if (line1.contains("Hokey")) {
 									hokey1.println(line1);
@@ -184,7 +179,7 @@ public class Driver {
 			for (int i = 0; i < fileName.length; i++) {
 				BufferedReader buffer = new BufferedReader(new FileReader(fileName[i]));
 				String line = null;
-				try {
+				try {			
 					while ((line = buffer.readLine()) != null) {
 
 						String[] anotherline = line.split(",");// Content of line stored in array anotherLine
@@ -269,7 +264,7 @@ public class Driver {
 				}
 				buffer.close();
 			}
-
+			
 			// Closes the PrintWriter
 			semantic1.close();
 
@@ -277,7 +272,6 @@ public class Driver {
 			e1.printStackTrace();
 		}
 	}
-
 	public static void do_part3() {
 
 		String[] BinaryFile = { "Football.csv.ser", "Hokey.csv.ser", "Basketball.csv.ser" }; // array of files to read
@@ -328,31 +322,70 @@ public class Driver {
 			e1.printStackTrace();
 		}
 		// Interactive code that will navigate the user depending on their choices
-		Scanner key = new Scanner(System.in);
-		String input = "";
-		String option = "";
-		while (!input.equalsIgnoreCase("x")) {
+				Scanner key = new Scanner(System.in);
+				//char input;
+				String option = "";
+				int FileValue = 0;
+				   
 
-			System.out.println("---------------------");
-			System.out.println("Main Menu");
-			System.out.println("---------------------");
-			System.out.println("v View the selected file: ");
-			System.out.println("s Select a file to view:");
-			System.out.println("x Exit");
-			System.out.println("---------------------");
-			System.out.println("Kindly,enter your choice");
-			input = key.next();
-			if (input.equals("s")) {
-				System.out.println("---------------------");
-				System.out.println("File Sub-Menu");
-				System.out.println("---------------------");
-				System.out.println("1" + "" + BinaryFile[0] + "(" + (BinaryFile[0] + 1) + "records");
-				System.out.println("2" + "" + BinaryFile[1] + "(" + (BinaryFile[1] + 1) + "records");
-				System.out.println("3" + "" + BinaryFile[2] + "(" + (BinaryFile[2] + 1) + "records");
-				System.out.println("4" + "" + "Exit");
-			}
-		}
+					System.out.println("---------------------");
+					System.out.println("Main Menu");
+					System.out.println("---------------------");
+					System.out.println("v View the selected file: " + ((BinaryFile[0]) + "\n "  + (BinaryFile[1]) + "\n " + (BinaryFile[2]) 
+							+ "(" + numofObjperfile[0] + "records)"));
+					System.out.println("s Select a file to view:");
+					System.out.println("x Exit");
+					System.out.println("---------------------");
+					System.out.println("Kindly,enter your choice");
+					
+					char input = key.next().charAt(0);
+					
+					if (input == 's' || input == 'S') {
+						System.out.println("---------------------");
+						System.out.println("File Sub-Menu");
+						System.out.println("---------------------");
+						System.out.println("1 " + "" + BinaryFile[0] + "(" + (numofObjperfile[0]) + " records)");
+						System.out.println("2 " + "" + BinaryFile[1] + "(" + (numofObjperfile[1]) + " records)");
+						System.out.println("3 " + "" + BinaryFile[2] + "(" + (numofObjperfile[2]) + " records)");
+						System.out.println("4 " + "" + "Exit");
+						System.out.println("---------------------");
+						System.out.println("Kindly,enter your choice");
+						
+					}
+					else if (input == 'v' || input == 'V') {
+						System.out.println("Viewing: " + ((BinaryFile[0]) + "(" + numofObjperfile[0] + "records)" + "\n "  + (BinaryFile[1]) + "(" + numofObjperfile[1] + "records)" +"\n " + (BinaryFile[2]) 
+								+ "(" + numofObjperfile[2] + "records)"));
+					}
+						
+					Scanner in = new Scanner(System.in);
+					int n = 0;
+					int i = 0;
+					
+					do {
+						System.out.println("Enter a value from 0 to x");
+						n = in.nextInt();
+						if ( n==0)
+							break;
+						else if (n > 0)
+							for (int k = 0; k <= n-1; k++) {
+								if ( i + k < finalarr.length()) {
+									System.out.println(finalarr[i+k]);
+						if (k == n-1)
+							i = k+1;
+						else {
+							System.out.println("EOF has beeen reached");
+							break;
+						}
+							
+						
+								}
+								else {
+									int l = ((-1)*n)-1;
+									int r = 0;
+								}
+							}
+					}
+					}
+				}
 
-	}
-
-}
+			
